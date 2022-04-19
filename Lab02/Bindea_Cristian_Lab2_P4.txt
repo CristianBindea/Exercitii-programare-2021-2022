@@ -1,0 +1,26 @@
+/*
+ Bindea Gheorghe Cristian - Problema 4
+Scrieti o aplicatie Java in care cititi de la tastatura un numar intreg si afisati toti divizorii numarului citit.
+*/
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int num = scanner.nextInt();
+        System.out.print("Divisors of " + num + ": ");
+        System.out.println(-num + " ");
+        for (int i = -Math.abs(num) / 2; i <= (Math.abs(num) / 2); i++) {
+            if (i == 0)
+                continue;
+            if (num % i == 0) {
+                System.out.print(i + " ");
+            }
+        }
+        System.out.println(num);
+    }
+}

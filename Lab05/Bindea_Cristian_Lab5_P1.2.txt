@@ -1,0 +1,77 @@
+
+/*
+ Bindea Gheorghe Cristian - Problema 1.2
+*/
+
+public class Lab05 {
+
+        public static void main(String[] args) {
+
+                int a = 5, b = 2;
+                Test test = new Test();
+                System.out.println("a + b = " + test.sum(a, b));
+                System.out.println("a - b = " + test.subtraction(a, b));
+                System.out.println("a / b = " + test.division(a, b));
+                System.out.println("a * b = " + test.multiplication(a, b));
+                System.out.println("a^(1/b) = " + test.root(a, b));
+                System.out.println("a^b = " + test.power(a, b));
+        }
+}
+
+interface Sum {
+        double sum(double a, double b);
+}
+
+interface Subtraction {
+        double subtraction(double a, double b);
+}
+
+interface Multiplication {
+        double multiplication(double a, double b);
+}
+
+interface Division {
+        double division(double a, double b);
+}
+
+interface Root {
+        double root(double a, double b);
+}
+
+interface Power {
+        double power(double a, double pow);
+}
+
+class Test implements Sum, Subtraction, Multiplication, Division, Root, Power {
+
+        @Override
+        public double sum(double a, double b) {
+                return a + b;
+        }
+
+        @Override
+        public double subtraction(double a, double b) {
+                return a - b;
+        }
+
+        @Override
+        public double multiplication(double a, double b) {
+                return a * b;
+        }
+
+        @Override
+        public double division(double a, double b) {
+                return a / b;
+        }
+
+        @Override
+        public double root(double a, double b) {
+                return java.lang.Math.pow(a, 1 / b);
+        }
+
+        @Override
+        public double power(double a, double pow) {
+                return java.lang.Math.pow(a, pow);
+        }
+
+}

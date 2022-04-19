@@ -1,0 +1,54 @@
+/*
+ Bindea Gheorghe Cristian - Problema 2
+*/
+package com.cristianbindea;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+class Main {
+    public static void main(String args[]) {
+
+        Scanner scanner = new Scanner(System.in);
+        int[] num = new int[10];
+        Arrays.setAll(num, i -> (i));
+
+        try {
+            System.out.print("Index de la 0 la 9: a = ");
+
+            int a = Integer.parseInt(scanner.nextLine());
+            System.out.println("Valoare selectata: " + a);
+            System.out.print("Index de la 0 la 9: b = ");
+            int b = Integer.parseInt(scanner.nextLine());
+            System.out.println("Valoare selectata: " + b);
+
+            System.out.print("a/b");
+            System.out.println(a / b);
+
+            System.out.print("String: ");
+            String string = scanner.next();
+            System.out.println("Lungimea sirului: " + string.length());
+
+            System.out.print("Integer: ");
+            Integer integer = Integer.valueOf(scanner.next());
+            System.out.println("Intreg introdus: "+ integer);
+
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Index in afara intervalului");
+
+        } catch (ArithmeticException e) {
+            System.out.println("Impartire la 0");
+
+        } catch (NullPointerException e) {
+            System.out.println("Variabila neinitializata");
+
+        } catch (NumberFormatException e) {
+            System.out.println("Indexul introdus nu este un numar");
+
+        } finally {
+            System.out.println("Am prins sau nu excepții");
+            scanner.close();
+        }
+    }
+}

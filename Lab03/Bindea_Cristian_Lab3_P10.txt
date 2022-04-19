@@ -1,0 +1,43 @@
+/*
+ Bindea Gheorghe Cristian - Problema 10
+Fie un algoritm de criptare in cadrul caruia se ia un text de intrare ‘A’ format din litere mici si mari. Separat se
+defineste un sir de caractere ”B” carora li se asociaza aleator cate un numar intreg de la 1 la 100. Algoritmul
+verifica daca literele din sirul B exista în sirul A si face suma numerelor asociate acestora. La suma finala se
+adauga pozitiile din sirul A la care au fost gasite caracterele din sirul B. Daca suma finala este mai mare de 100,
+criptarea a fost valida. Afisati un mesaj corespunzator. 
+ */
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class HelloWorld {
+
+	public static void main(String[] args) {
+
+		Random random = new Random();
+		Scanner scanner = new Scanner(System.in);
+		String A = new String();
+		String B = new String();
+
+		System.out.print("A: ");
+		A = scanner.next();
+		System.out.print("B: ");
+		B = scanner.next();
+
+		int[] valoriB = new int[B.length()];
+		for (int i = 0; i < valoriB.length; i++)
+			valoriB[i] = random.nextInt(101);
+
+		int sum = 0;
+		for (int i = 0; i < A.length(); i++)
+			for (int j = 0; j < B.length(); j++)
+				if (A.charAt(i) == B.charAt(j)) {
+					sum = sum + i + valoriB[j];
+				}
+
+		if (sum > 100)
+			System.out.println("CRIPTARE VALIDATA");
+		else
+			System.out.println("CRIPTARE NEVALIDATA");
+	}
+}

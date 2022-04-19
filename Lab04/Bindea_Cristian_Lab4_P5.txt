@@ -1,0 +1,39 @@
+/*
+ Bindea Gheorghe Cristian - Problema 5
+*/
+
+import java.util.stream.Stream;
+
+public class Main {
+
+    public static void main(String[] args) {
+        String string;
+
+        string = "Repeat".repeat(10);
+        System.out.println("Repeated string: " + string);
+        System.out.println("\n");
+
+        string = "Line 1\nLine 2\nLine 3\n";
+        Stream<String> lines = string.lines();
+        String[] linesString = lines.toArray(String[]::new);
+        System.out.println("Printing a text line by line:");
+        for (String str : linesString)
+            System.out.println(str);
+
+        System.out.println("\n");
+
+        string = "      text      ";
+        System.out.println("String with whitespace: " + "->" + string + "<-");
+        System.out.println("Stripped leading whitespace: " + "->" + string.stripLeading() + "<-");
+        System.out.println("Stripped trailing whitespace: " + "->" + string.stripTrailing() + "<-");
+        System.out.println("Stripped whitespace: " + "->" + string.strip() + "<-");
+    }
+}
+
+/*
+public String repeat(int count)
+public Stream<String> lines()
+public String stripTrailing()
+public String stripLeading()
+public String strip()
+ */

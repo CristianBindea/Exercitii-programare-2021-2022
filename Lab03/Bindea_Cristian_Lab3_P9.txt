@@ -1,0 +1,31 @@
+/*
+ Bindea Gheorghe Cristian - Problema 9
+*/
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        String suits[] = {"Inima", "Romb", "Trefla", "Pica"};
+        String cards[] = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
+
+        List<String> deck = new ArrayList<>();
+
+        for (String s : suits)
+            for (String c : cards)
+                deck.add(c + " " + s);
+
+        int deckSize = deck.size();
+        Random random = new Random();
+        while (deck.size() != 0) {
+            int index = random.nextInt(deck.size());
+            System.out.println(deck.get(index));
+            if (Character.getNumericValue((deck.get(index).charAt(0))) > 8 && deck.get(index).contains("Trefla")) {
+                deck.remove(index);
+                System.out.println("Gasit din " + (deckSize - deck.size()) + " incercari");
+                break;
+            }
+            deck.remove(index);
+            System.out.println("Carti extrase: " + (deckSize - deck.size()));
+        }
+    }
+}

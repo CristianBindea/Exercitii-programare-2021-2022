@@ -1,0 +1,128 @@
+import java.util.Arrays;
+import java.util.Random;
+
+/*
+ Bindea Gheorghe Cristian - Problema 11
+*/
+
+public class HelloWorld {
+
+	final private static int SIZE = 3;
+
+	private static int[][] gameField;
+	private static int[] movesAvailable;
+	private static int result;
+	private static int[] rows;
+	private static int[] columns;
+	private static int[] diagonal;
+	private static int[] oppositeDiagonal;
+	private static Random random;
+	//  0 - nefolosit
+	//  1 - (X)
+	// -1 - (0)
+
+	public static void main(String[] args) {
+
+		init();
+
+		printGameField();
+		while (result == 0) {
+			nextMove();
+			printGameField();
+			showWinner();
+		}
+	}
+
+	private static void init() {
+		gameField = new int[SIZE][SIZE];
+		movesAvailable = new int[SIZE * SIZE];
+		rows = new int[SIZE];
+		columns = new int[SIZE];
+		diagonal = new int[SIZE];
+		oppositeDiagonal = new int[SIZE];
+		random = new Random();
+		Arrays.setAll(movesAvailable, index -> index);
+	}
+
+	private static void printGameField() {
+		for (int[] a : gameField) {
+			for (int b : a)
+				switch (b) {
+				case -1:
+					System.out.print("0 ");
+					break;
+				case 1:
+					System.out.print("X ");
+					break;
+				default:
+					System.out.print("* ");
+				}
+
+			System.out.println();
+		}
+		System.out.println();
+	}
+
+	private static void nextMove() {
+
+		int index = random.ints(0, movesAvailable.length).findFirst().getAsInt();
+		int coordonate = movesAvailable[index];
+
+		int row = coordonate / SIZE;
+		int col = coordonate % SIZE;
+		int player;
+
+		if (movesAvailable.length % 2 == 0)
+			player = -1;
+		else
+			player = 1;
+
+		gameUpdate(row, col, player);
+		gameResult(row, col);
+
+		System.arraycopy(movesAvailable, index + 1, movesAvailable, index, movesAvailable.length - index - 1);
+		movesAvailable = Arrays.copyOf(movesAvailable, movesAvailable.length - 1);
+	}
+
+	private static void gameUpdate(int row, int col, int player) {
+		gameField[row][col] = player;
+		rows[row] += player;
+		columns[col] += player;
+		if (row == col)
+			diagonal[row] += player;
+		if (row + col + 1 == SIZE)
+			oppositeDiagonal[row] += player;
+	}
+
+	private static void gameResult(int row, int col) {
+		if (movesAvailable.length == 1) {
+			result = -2;
+		}
+
+		int sumDiagonal = 0, sumOppositeDiagonal = 0;
+		for (int a : diagonal)
+			sumDiagonal += a;
+		for (int a : oppositeDiagonal)
+			sumOppositeDiagonal += a;
+		if (rows[row] == SIZE || columns[col] == SIZE || sumDiagonal == SIZE || sumOppositeDiagonal == SIZE)
+			result = 1;
+
+		if (rows[row] == -SIZE || columns[col] == -SIZE || sumDiagonal == -SIZE || sumOppositeDiagonal == -SIZE)
+			result = -1;
+	}
+
+	private static void showWinner() {
+		switch (result) {
+		case 1:
+			System.out.println("X Won\n");
+			break;
+		case -1:
+			System.out.println("0 Won\n");
+			break;
+		case -2:
+			System.out.println("DRAW\n");
+			break;
+		default:
+		}
+	}
+}

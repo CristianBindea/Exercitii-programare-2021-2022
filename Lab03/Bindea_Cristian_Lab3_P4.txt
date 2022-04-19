@@ -1,0 +1,30 @@
+/*
+ Bindea Gheorghe Cristian - Problema 4
+ Scrieti o aplicatie Java care defineste o valoare intreaga si apoi afiseaza reprezentarea ei binara, octala si
+hexazecimala. Scrieti metode de conversie a valorii citite in diferite baze de numeratie.
+
+*/
+
+public class HelloWorld {
+	public static void main(String[] args) {
+
+		int n = 52255;
+		System.out.println("Decimal: " + n);
+		System.out.println("Binar: " + binary(n));
+		System.out.println("Octal: " + octal(n));
+		System.out.println("Hexadecimal: " + hexa(n));
+
+	}
+
+	private static String binary(int n) {
+		return Integer.toString(n, 2);
+	}
+
+	private static String octal(int n) {
+		return Integer.toString(n, 8);
+	}
+
+	private static String hexa(int n) {
+		return Integer.toString(n, 16);
+	}
+}

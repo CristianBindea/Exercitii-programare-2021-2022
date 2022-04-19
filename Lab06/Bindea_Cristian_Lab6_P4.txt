@@ -1,0 +1,61 @@
+/*
+ Bindea Gheorghe Cristian - Problema 4
+*/
+
+package com.cristianbindea;
+
+public class Main {
+    public static void main(String... args){
+
+        Test test = new Test();
+        try {
+            test.a();
+        }
+        catch (SuperExceptie superExceptie){
+            System.out.println("Super exceptia a fost prinsa");
+        }
+        System.out.println();
+
+        try {
+            test.b();
+        }
+        catch (ExceptieMaiMica exceptieMaiMica){
+            System.out.println("Exceptia mai mica a fost prinsa");
+        }
+        System.out.println();
+
+        try {
+            test.b();
+        }
+        catch (SuperExceptie superExceptie){
+            System.out.println("Exceptia mai mica a fost prinsa de o super exceptie"); // dar invers nu se poate
+        }
+
+
+    }
+
+
+}
+
+class SuperExceptie extends Exception {
+
+    public SuperExceptie() {
+        System.out.println("SuperExceptie creata");
+    }
+}
+
+class ExceptieMaiMica extends SuperExceptie {
+    public ExceptieMaiMica() {
+        System.out.println("Exceptie mai mica creata");
+    }
+}
+
+class Test {
+    void a() throws SuperExceptie{
+        throw  new SuperExceptie();
+    }
+
+    void b()throws ExceptieMaiMica{
+        throw new ExceptieMaiMica();
+    }
+}

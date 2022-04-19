@@ -1,0 +1,37 @@
+/*
+ Bindea Gheorghe Cristian - Problema 1
+*/
+
+package com.cristianbindea;
+
+public class Main {
+    public static void main(String... args) {
+
+        Test<Integer> ob1 = new Test<Integer>();
+        System.out.println("Integer: " + ob1.next(10));
+
+        Test<Float> ob2 = new Test<Float>();
+        System.out.println("Float: " + ob2.next(3.1415));
+
+        Test<Double> ob3 = new Test<Double>();
+        System.out.println("Double: " + ob3.next(135.2341233455223));
+
+        Test<String> ob4 = new Test<String>();
+        System.out.println("String: " + ob4.next("Test String"));
+
+        Test<Character> ob5 = new Test<Character>();
+        System.out.println("Character: " + ob5.next("c"));
+    }
+}
+
+interface Generator<T> {
+    public <S> S next(S var);
+}
+
+class Test<T> implements Generator<T> {
+    @Override
+    public <S> S next(S var) {
+        return var;
+    }
+}
+

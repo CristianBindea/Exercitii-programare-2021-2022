@@ -1,0 +1,32 @@
+/*
+ Bindea Gheorghe Cristian - Problema 5
+*/
+
+package com.cristianbindea;
+
+import java.util.Arrays;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        String[] strings = {"absgasdv", "bgsojiv", "bgargxz", "bargacv", "bagfdba", "hadhb", "reab", "ghb", "ub", "qb", "wb", "bt5aw4", "aqaaafab"};
+        System.out.println("Sortare dupa lungime:");
+        Arrays.sort(strings, (a, b) -> a.length() - b.length());
+        printStrings(strings);
+
+        System.out.println("Sortare inversa dupa lungime:");
+        Arrays.sort(strings, (a, b) -> b.length() - a.length());
+        printStrings(strings);
+
+        System.out.println("Sortare alfabetica:");
+        Arrays.sort(strings);
+        printStrings(strings);
+        
+    }
+    public static void printStrings(String []strings){
+        for(String string:strings)
+            System.out.println(string);
+        System.out.println();
+    }
+}

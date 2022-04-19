@@ -1,0 +1,26 @@
+/*
+ Bindea Gheorghe Cristian - Problema 3
+Pornind de la problema precedenta, copiati primele 3 caractere din sir intr-un alt tablou 
+si afisati rezultatul obtinut (folositi metoda arraycopy() din clasa System).
+*/
+
+import java.util.Scanner;
+
+public class HelloWorld {
+	public static void main(String[] args) {
+
+		Scanner scanner = new Scanner(System.in);
+		String string = new String();
+		System.out.print("Enter a string: ");
+		string = scanner.next();
+		scanner.close();
+		char[] chars = string.toCharArray();
+
+		char[] chars2 = new char[3];
+		System.arraycopy(chars, 0, chars2, 0, 3);
+
+		System.out.println(chars2);
+	}
+
+}
+s

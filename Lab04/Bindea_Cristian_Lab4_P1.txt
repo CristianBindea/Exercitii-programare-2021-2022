@@ -1,0 +1,61 @@
+/*
+ Bindea Gheorghe Cristian - Problema 1
+*/
+
+import java.util.Random;
+import java.util.Scanner;
+
+
+public class Methods {
+
+        public static void main(String[] args) {
+
+                System.out.println("Prima metoda");
+                System.out.println(medie(61));
+                System.out.println(medie(1, 72, 3));
+                System.out.println(medie(1, 3, 7775, 17, 234));
+
+                System.out.println("\nA doua metoda");
+                int n;
+                Scanner scanner = new Scanner(System.in);
+                System.out.print("N = ");
+                n = scanner.nextInt();
+                scanner.close();
+                int[] v = random(n);
+                for (int i : v)
+                        System.out.print(i + " ");
+                System.out.print("\n");
+
+                System.out.println("\nA treia metoda");
+                char[] ch = { 'a', 'b', 'c', 'd' };
+                String str = characters(ch);
+                System.out.println(str);
+
+        }
+
+        private static int medie(int... v) {
+                int sum = 0;
+                for (int num : v)
+                        sum += num;
+
+                return sum / v.length;
+        }
+
+        private static int[] random(int n) {
+                int[] randArray = new int[n];
+                Random rand = new Random();
+
+                for (int i = 0; i < n; i++)
+                        randArray[i] = rand.nextInt(100);
+
+                return randArray;
+        }
+
+        private static String characters(char[] ch) {
+                String str = new String(ch);
+                str = str.toUpperCase();
+
+                return str;
+        }
+
+}

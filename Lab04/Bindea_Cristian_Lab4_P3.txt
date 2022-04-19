@@ -1,0 +1,96 @@
+/*
+ Bindea Gheorghe Cristian - Problema 3
+
+ Scrieți o clasă Java care modelează o matrice de valori întregi. Atât dimensiunile matricii cât și tabloul bidimensional de elemente sunt atribute private în clasă,
+  accesate prin intermediul unor metode publice setter și getter. Includeți în clasă metode de afișare a matricii,
+ de calcul și retur a numărului de grupuri de elemente (9 valori învecinate), care nu diferă cu mai mult de 5% față de un anumit prag.
+*/
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        int[][] mat = {{100, 101, 100, 4},
+                {100, 101, 100, 4},
+                {100, 102, 100, 4},
+                {100, 2, 3, 4}};
+
+        Matrix matrix = new Matrix(mat.length, mat.length, mat, 100);
+
+        matrix.printMatrix();
+        System.out.println(matrix.numberOfGrups());
+    }
+}
+
+class Matrix {
+    private int rows, columns;
+    private int[][] matrix;
+    private int treshold;
+
+    public Matrix(int rows, int columns, int[][] matrix, int treshold) {
+        this.rows = rows;
+        this.columns = columns;
+        this.matrix = matrix;
+        this.treshold = treshold;
+    }
+
+    public void printMatrix() {
+        System.out.println("Print Matrix:");
+        for (int[] ints : this.matrix) {
+            for (int j = 0; j < this.rows; j++)
+                System.out.print(ints[j] + " ");
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    public int numberOfGrups() {
+        int cnt = 0;
+        for (int i = 1; i < this.columns - 1; i++)
+            for (int j = 1; j < this.rows - 1; j++)
+                if (validate(i, j))
+                    cnt++;
+        return cnt;
+    }
+
+    private boolean validate(int row, int col) {
+        for (int i = -1; i <= 1; i++)
+            for (int j = -1; j <= 1; j++)
+                if ((Math.abs(matrix[row + i][col + j] - treshold)) > 0.05 * treshold)
+                    return false;
+        return true;
+
+    }
+
+    public int getTreshold() {
+        return treshold;
+    }
+
+    public void setTreshold(int treshold) {
+        this.treshold = treshold;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
+    public int getColumns() {
+        return columns;
+    }
+
+    public void setColumns(int columns) {
+        this.columns = columns;
+    }
+
+    public int[][] getMatrix() {
+        return matrix;
+    }
+
+    public void setMatrix(int[][] matrix) {
+        this.matrix = matrix;
+    }
+}

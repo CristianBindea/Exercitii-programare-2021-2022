@@ -1,0 +1,77 @@
+/*
+ Bindea Gheorghe Cristian - Problema 7
+*/
+
+package com.cristianbindea;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Avion avion = new Avion(100, "alb", 1000, 500, new GeoLoc(50, 78));
+        VehiculMotorizat vehiculMotorizat = new VehiculMotorizat(4, "rosu", 180, 100, new GeoLoc(50, 78));
+
+        double timpDeplasareMasina = vehiculMotorizat.deplaseaza(new GeoLoc(18200, 18200));
+        double timpDeplasareAvion = avion.deplaseaza(new GeoLoc(18200, 18200));
+
+        System.out.println("Timpul de deplasare al masinii: " + String.format("%.2f", timpDeplasareMasina));
+        System.out.println("Timpul de deplasare al avionului: " + String.format("%.2f", timpDeplasareAvion));
+        System.out.println("Diferenta de timp: " + String.format("%.2f", (timpDeplasareMasina - timpDeplasareAvion)));
+    }
+}
+
+class Vehicul {
+    int nrMaximPasageri;
+    String culoare;
+    int vitezaMaxima;
+
+    public Vehicul(int nrMaximPasageri, String culoare, int vitezaMaxima) {
+        this.nrMaximPasageri = nrMaximPasageri;
+        this.culoare = culoare;
+        this.vitezaMaxima = vitezaMaxima;
+    }
+}
+
+class VehiculMotorizat extends Vehicul {
+    GeoLoc pozitie;
+    int viteza;
+
+    public VehiculMotorizat(int nrMaximPasageri, String culoare, int vitezaMaxima, int viteza, GeoLoc pozitie) {
+        super(nrMaximPasageri, culoare, vitezaMaxima);
+        this.viteza = viteza;
+        this.pozitie = pozitie;
+    }
+
+    public double deplaseaza(GeoLoc pozitieNoua) {
+        double timp = Math.sqrt(Math.pow((pozitieNoua.x - pozitie.x), 2) + Math.pow((pozitieNoua.y - pozitie.y), 2)) / this.viteza;
+        pozitie = pozitieNoua;
+        return timp;
+    }
+}
+
+class Avion extends VehiculMotorizat {
+    double z;
+
+    public Avion(int nrMaximPasageri, String culoare, int vitezaMaxima, int viteza, GeoLoc pozitie) {
+        super(nrMaximPasageri, culoare, vitezaMaxima, viteza, pozitie);
+    }
+
+    @Override
+    public double deplaseaza(GeoLoc pozitieNoua) {
+        this.z = Math.sqrt(Math.pow((pozitieNoua.x - pozitie.x), 2) + Math.pow((pozitieNoua.y - pozitie.y), 2)) / 2;
+        double arcDeCerc = Math.PI * z;
+        pozitie = pozitieNoua;
+        return arcDeCerc / viteza;
+
+        // lungimeArcDeCerc = 2*pi*r*(alpha/360)
+    }
+}
+
+class GeoLoc {
+    public GeoLoc(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    int x;
+    int y;
+}

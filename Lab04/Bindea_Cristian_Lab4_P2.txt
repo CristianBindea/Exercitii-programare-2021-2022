@@ -1,0 +1,72 @@
+/*
+ Bindea Gheorghe Cristian - Problema 2
+*/
+
+import java.util.Arrays;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        char[] ch = {'a', 'b', 'c'};
+        X x1 = new X(ch, "cdef", 21);
+
+        X x2 = new X();
+        char[] ch2 = {'q', 'e', 'r'};
+        System.out.println("Inainte de modificari:\n"+x2.toString());
+        x2.setChars(ch2);
+        x2.setString("12345");
+        x2.setAnInt(10);
+        System.out.println("Dupa modificari:\n"+x2.toString());
+
+    }
+}
+
+class X {
+    private char[] chars;
+    protected String string;
+    int anInt;
+
+    public X() {
+    }
+
+    public X(char[] chars, String string, int anInt) {
+        this.chars = chars;
+        this.string = string;
+        this.anInt = anInt;
+    }
+
+    public char[] getChars() {
+        return chars;
+    }
+
+    public void setChars(char[] chars) {
+        this.chars = chars;
+    }
+
+    public String getString() {
+        return string;
+    }
+
+    public void setString(String string) {
+        this.string = string;
+    }
+
+    public int getAnInt() {
+        return anInt;
+    }
+
+    public void setAnInt(int anInt) {
+        this.anInt = anInt;
+    }
+
+    @Override
+    protected void finalize() {
+        System.out.println("Eliminated");
+    }
+
+    @Override
+    public String toString() {
+        return "Chars: " + Arrays.toString(this.chars) + "\nString: " + this.string + "\nInt: " + this.anInt + "\n";
+    }
+}

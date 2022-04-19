@@ -1,0 +1,68 @@
+/*
+ Bindea Gheorghe Cristian - Problema 3
+*/
+
+package com.cristianbindea;
+
+public class Main {
+    public static void main(String... args) {
+
+        Copil copil = new Copil("A", 11);
+        Adult adult = new Adult("B", 34);
+        Pensionar pensionar = new Pensionar("C", 73);
+
+        System.out.println(copil.getClass() + ": " + SetterGetter.getNume(copil) + " " + SetterGetter.getVarsta(copil));
+        System.out.println(adult.getClass() + ": " + SetterGetter.getNume(adult) + " " + SetterGetter.getVarsta(adult));
+        System.out.println(pensionar.getClass() + ": " + SetterGetter.getNume(pensionar) + " " + SetterGetter.getVarsta(adult));
+
+        System.out.println();
+        SetterGetter.setNume(copil, "ABC");
+        System.out.println(copil.getClass() + ": " + SetterGetter.getNume(copil) + " " + SetterGetter.getVarsta(copil));
+
+    }
+}
+
+class SetterGetter {
+    public static <T extends Persoana> int getVarsta(T ob) {
+        return ob.varsta;
+    }
+
+    public static <T extends Persoana> String getNume(T ob) {
+        return ob.nume;
+    }
+
+    public static <T extends Persoana> void setVarsta(T ob, int varsta) {
+        ob.varsta = varsta;
+    }
+
+    public static <T extends Persoana> void setNume(T ob, String nume) {
+        ob.nume = nume;
+    }
+}
+
+class Persoana {
+    String nume;
+    int varsta;
+}
+
+class Copil extends Persoana {
+
+    public Copil(String nume, int varsta) {
+        this.nume = nume;
+        this.varsta = varsta;
+    }
+}
+
+class Adult extends Persoana {
+    public Adult(String nume, int varsta) {
+        this.nume = nume;
+        this.varsta = varsta;
+    }
+}
+
+class Pensionar extends Persoana {
+    public Pensionar(String nume, int varsta) {
+        this.nume = nume;
+        this.varsta = varsta;
+    }
+}

@@ -1,0 +1,47 @@
+/*
+ Bindea Gheorghe Cristian - Problema 5
+Scrieti o aplicatie Java in care cititi de la tastatuta mai multe numere intregi si verificati daca sunt numere prime. Numarul de valori citite este preluat de la tastatura sau din linia de comanda.
+*/
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        if (args.length > 0) {
+            try {
+                int num;
+                for (String arg : args) {
+                    num = Integer.parseInt(arg);
+                    if (isPrime(num))
+                        System.out.println(num + " is a prime number");
+                    else
+                        System.out.println(num + " is not a prime number");
+                }
+            } catch (NumberFormatException nfe) {
+                System.out.println("Argument must be an integer value");
+            }
+        } else {
+            Scanner scanner = new Scanner(System.in);
+            int num;
+            while (true) {
+                System.out.println("Enter a number, or enter -1 to stop ");
+                num = scanner.nextInt();
+                if (num == -1)
+                    break;
+                if (isPrime(num))
+                    System.out.println(num + " is a prime number");
+                else
+                    System.out.println(num + " is not a prime number");
+            }
+        }
+    }
+
+    private static boolean isPrime(int num) {
+        if (num <= 0)
+            return false;
+        for (int i = 2; i < Math.sqrt(num); i++)
+            if (num % i == 0)
+                return false;
+        return true;
+    }
+}

@@ -1,0 +1,100 @@
+/*
+ Bindea Gheorghe Cristian - Problema 2
+*/
+
+package com.cristianbindea;
+
+public class Main {
+    public static void main(String... args) {
+        System.out.println("Adunare");
+        System.out.println(Calculator.adunare("a", "b"));
+        System.out.println(Calculator.adunare(1, 2));
+        System.out.println(Calculator.adunare(1.1, 2.44));
+
+        System.out.println("\nScadere");
+        System.out.println(Calculator.scadere("aaaaaaabbbbbb", "a"));
+        System.out.println(Calculator.scadere(11, 2));
+        System.out.println(Calculator.scadere(1.75, 2.1334));
+
+        System.out.println("\nInmultire");
+        System.out.println(Calculator.inmultire("aa", "bb"));
+        System.out.println(Calculator.inmultire(10, 10));
+        System.out.println(Calculator.inmultire(5.23, 65.3));
+
+        System.out.println("\nImpartire");
+        System.out.println(Calculator.impartire("aa", "bb"));
+        System.out.println(Calculator.impartire(1, 32));
+        System.out.println(Calculator.impartire(553.4, 31.3));
+
+    }
+}
+
+class Calculator {
+    public static <T> T adunare(T ob1, T ob2) {
+        if (ob1.getClass() == String.class && ob2.getClass() == String.class) {
+            String s = ob1.toString() + ob2.toString();
+            return (T) s;
+        }
+        if (ob1.getClass() == Integer.class && ob2.getClass() == Integer.class)
+            return (T) (Integer) ((Integer) ob1 + ((Integer) ob2));
+
+        if (ob1.getClass() == Float.class && ob2.getClass() == Float.class)
+            return (T) (Float) ((Float) ob1 + (Float) ob2);
+
+        if (ob1.getClass() == Double.class && ob2.getClass() == Double.class)
+            return (T) (Double) ((Double) ob1 + (Double) ob2);
+
+        return null;
+    }
+
+    public static <T> T scadere(T ob1, T ob2) {
+        if (ob1.getClass() == String.class && ob2.getClass() == String.class) {
+            String s = ob1.toString().replaceAll(ob2.toString(), "");
+            return (T) s;
+        }
+        if (ob1.getClass() == Integer.class && ob2.getClass() == Integer.class)
+            return (T) (Integer) ((Integer) ob1 - ((Integer) ob2));
+
+        if (ob1.getClass() == Float.class && ob2.getClass() == Float.class)
+            return (T) (Float) ((Float) ob1 - (Float) ob2);
+
+        if (ob1.getClass() == Double.class && ob2.getClass() == Double.class)
+            return (T) (Double) ((Double) ob1 - (Double) ob2);
+
+        return null;
+    }
+
+    public static <T> T inmultire(T ob1, T ob2) {
+        if (ob1.getClass() == String.class && ob2.getClass() == String.class) {
+            System.out.print("Operatie nedefinita pentru String  rezultat: ");
+            return null;
+        }
+        if (ob1.getClass() == Integer.class && ob2.getClass() == Integer.class)
+            return (T) (Integer) ((Integer) ob1 * ((Integer) ob2));
+
+        if (ob1.getClass() == Float.class && ob2.getClass() == Float.class)
+            return (T) (Float) ((Float) ob1 * (Float) ob2);
+
+        if (ob1.getClass() == Double.class && ob2.getClass() == Double.class)
+            return (T) (Double) ((Double) ob1 * (Double) ob2);
+
+        return null;
+    }
+
+    public static <T> T impartire(T ob1, T ob2) {
+        if (ob1.getClass() == String.class && ob2.getClass() == String.class) {
+            System.out.print("Operatie nedefinita pentru String   rezultat: ");
+            return null;
+        }
+        if (ob1.getClass() == Integer.class && ob2.getClass() == Integer.class)
+            return (T) (Integer) ((Integer) ob1 / ((Integer) ob2));
+
+        if (ob1.getClass() == Float.class && ob2.getClass() == Float.class)
+            return (T) (Float) ((Float) ob1 / (Float) ob2);
+
+        if (ob1.getClass() == Double.class && ob2.getClass() == Double.class)
+            return (T) (Double) ((Double) ob1 / (Double) ob2);
+
+        return null;
+    }
+}

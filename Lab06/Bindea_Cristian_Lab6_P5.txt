@@ -1,0 +1,94 @@
+/*
+ Bindea Gheorghe Cristian - Problema 5
+*/
+
+package com.cristianbindea;
+
+import java.awt.*;
+import java.util.Random;
+
+public class Main {
+    static final int MAX_COORDONATE = 100;
+
+    public static void main(String... args) {
+
+        Random random = new Random();
+        Point p1 = new Point(random.nextInt(MAX_COORDONATE), random.nextInt(MAX_COORDONATE));
+        Point p2 = new Point(random.nextInt(MAX_COORDONATE), random.nextInt(MAX_COORDONATE));
+        Point p3 = new Point(random.nextInt(MAX_COORDONATE), random.nextInt(MAX_COORDONATE));
+        System.out.println("Point 1: " + "x = " + p1.x + "  y = " + p1.y);
+        System.out.println("Point 2: " + "x = " + p2.x + "  y = " + p2.y);
+        System.out.println("Point 3: " + "x = " + p3.x + "  y = " + p3.y);
+
+        try {
+            if (p1.x == p2.x && p2.x == p3.x || p1.y == p2.y && p2.y == p3.y)
+                throw new ImpossibleTriangle("Triunghi imposibil");
+            else if (checkEchi(p1, p2, p3))
+                throw new AcuteTriangle("Triunghi Ascutit (Echilateral)");
+        } catch (ImpossibleTriangle | AcuteTriangle e) {
+            System.out.println(e.getMessage());
+        }
+
+        int triangleType;
+        int largestSide = checkLenght(p1, p2, p3);
+
+        if (largestSide == 1)
+            triangleType = checkPitagora(p1, p2, p3);
+        else if (largestSide == 2)
+            triangleType = checkPitagora(p2, p1, p3);
+        else
+            triangleType = checkPitagora(p3, p1, p2);
+
+        try {
+            if (triangleType == 0)
+                throw new RightTriangle("Triunghi dreptunghic");
+            else if (triangleType < 0)
+                throw new AcuteTriangle("Triunghi ascutitunghic");
+            else
+                throw new ObtuseTriangle("Triunghi obtuzunghic");
+        } catch (ObtuseTriangle | RightTriangle | AcuteTriangle e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static int checkLenght(Point a, Point b, Point c) {
+        if (a.distance(b) > b.distance(c) && a.distance(b) > a.distance(c))
+            return 3;
+        if (a.distance(c) > a.distance(b) && a.distance(c) > b.distance(c))
+            return 2;
+        else
+            return 1;
+    }
+
+    private static int checkPitagora(Point a, Point b, Point c) {
+        return Double.compare(Math.pow(c.distance(b), 2), Math.pow(a.distance(b), 2) + Math.pow(a.distance(c), 2));
+    }
+
+    private static boolean checkEchi(Point a, Point b, Point c) {
+        return a.distance(b) == a.distance(c) && a.distance(b) == b.distance(c);
+    }
+}
+
+class AcuteTriangle extends Exception {
+    public AcuteTriangle(String message) {
+        super(message);
+    }
+}
+
+class RightTriangle extends Exception {
+    public RightTriangle(String message) {
+        super(message);
+    }
+}
+
+class ObtuseTriangle extends Exception {
+    public ObtuseTriangle(String message) {
+        super(message);
+    }
+}
+
+class ImpossibleTriangle extends Exception {
+    public ImpossibleTriangle(String message) {
+        super(message);
+    }
+}

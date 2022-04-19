@@ -1,0 +1,79 @@
+/*
+ Bindea Gheorghe Cristian - Problema 4
+*/
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        int n;
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Introduceti nr de persoane: ");
+        n = scanner.nextInt();
+        Persoana[] persoane = new Persoana[n];
+        for (int i = 0; i < n; i++) {
+            persoane[i] = new Persoana();
+            System.out.println("Persoana " + i + ":");
+            System.out.print("Nume: ");
+            persoane[i].setNume(scanner.next());
+            System.out.print("Latitudine: ");
+            persoane[i].setLatitudine(scanner.nextFloat());
+            System.out.print("Longitudine: ");
+            persoane[i].setLongitudine(scanner.nextFloat());
+        }
+        scanner.close();
+
+        System.out.println("Persoanele introduse:");
+        for (Persoana persoana : persoane)
+            System.out.println(persoana.toString());
+    }
+}
+
+class Persoana {
+    private String nume;
+    private float longitudine, latitudine;
+
+    public Persoana() {
+        this.nume = "";
+        this.longitudine = 0;
+        this.latitudine = 0;
+    }
+
+    public String getNume() {
+        return nume;
+    }
+
+    public void setNume(String nume) {
+        this.nume = nume;
+    }
+
+    public float getLongitudine() {
+        return longitudine;
+    }
+
+    public void setLongitudine(float longitudine) {
+        this.longitudine = longitudine;
+    }
+
+    public float getLatitudine() {
+        return latitudine;
+    }
+
+    public void setLatitudine(float latitudine) {
+        this.latitudine = latitudine;
+    }
+
+    @Override
+    protected void finalize() {
+        System.out.println("Un obiect a fost distrus");
+    }
+
+    @Override
+    public String toString() {
+        return "Nume: " + this.nume + "\n"
+                + "Latitudine: " + this.latitudine + "\n"
+                + "Longitudine: " + this.longitudine + "\n";
+    }
+}

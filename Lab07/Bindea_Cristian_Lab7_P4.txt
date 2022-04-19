@@ -1,0 +1,165 @@
+/*
+ Bindea Gheorghe Cristian - Problema 4
+*/
+
+package com.cristianbindea;
+
+import java.util.*;
+
+public class Main {
+
+
+    public static void main(String... args) {
+        Scanner scanner = new Scanner(System.in);
+
+        Table extensii = new Table();
+        extensii.addMultiMap(-1, "nedefinit", " ");
+        extensii.addMultiMap(0, "imagine", ".jpeg");
+        extensii.addMultiMap(1, "text", ".txt");
+        extensii.addMultiMap(2, "aplicatie", ".exe");
+        extensii.addMultiMap(3, "document", ".doc");
+        extensii.addMultiMap(4, "pdf", ".pdf");
+
+        System.out.print("Numarul de fisiere:");
+        int n = scanner.nextInt();
+
+        UserFile[] userFiles = new UserFile[n];
+
+        for (int i = 0; i < n; i++) {
+            System.out.println("Fisierul " + (i + 1));
+
+            System.out.print("Denumire: ");
+            String denumire = scanner.next();
+
+            System.out.println("Fisierul este de tip: \n\t 0 : imagine\n\t 1 : text\n\t 2 : aplicatie\n\t 3 : document\n\t 4 : pdf");
+            int tip = scanner.nextInt();
+            if (tip > 4 || tip < 0)
+                tip = -1;
+
+            System.out.print("Marimea fisierului in bytes: ");
+            int marime = scanner.nextInt();
+
+            userFiles[i] = new UserFile(denumire, (String) (extensii.getMultiMap(tip).get(1)), (String) (extensii.getMultiMap(tip).get(0)), marime);
+        }
+
+        System.out.println("\nFisiere introduse:");
+        for (int i = 0; i < n; i++)
+            System.out.println(userFiles[i].getDenumire() + userFiles[i].getExtensie());
+
+        System.out.println("\nFisierele sortate dupa marime:");
+        Arrays.sort(userFiles);
+
+        for (UserFile userFile : userFiles)
+            System.out.println(userFile);
+
+    }
+}
+
+class Table {
+    Map<Object, List<Object>> multiMap = new HashMap<Object, List<Object>>();
+
+    public void addMultiMap(int key, Object obj) {
+        List<Object> list;
+        if (multiMap.containsKey(key)) {
+            list = multiMap.get(key);
+            list.add(obj);
+        } else {
+            list = new ArrayList<Object>();
+            list.add(obj);
+            multiMap.put(key, list);
+        }
+    }
+
+    public void addMultiMap(int key, Object obj1, Object obj2) {
+        List<Object> list;
+        if (multiMap.containsKey(key)) {
+            list = multiMap.get(key);
+            list.add(obj1);
+            list.add(obj2);
+        } else {
+            list = new ArrayList<Object>();
+            list.add(obj1);
+            list.add(obj2);
+            multiMap.put(key, list);
+        }
+    }
+
+    public List<Object> getMultiMap(int key) {
+        return multiMap.getOrDefault(key, null);
+    }
+}
+
+class UserFile implements Comparable<UserFile> {
+    public String denumire, extensie, tip;
+    public int marimeInBytes;
+
+    public UserFile(String denumire, String extensie, String tip, int marimeInBytes) {
+        this.denumire = denumire;
+        this.extensie = extensie;
+        this.tip = tip;
+        this.marimeInBytes = marimeInBytes;
+    }
+
+    public String getDenumire() {
+        return denumire;
+    }
+
+    public void setDenumire(String denumire) {
+        this.denumire = denumire;
+    }
+
+    public String getExtensie() {
+        return extensie;
+    }
+
+    public void setExtensie(String extensie) {
+        this.extensie = extensie;
+    }
+
+    public String getTip() {
+        return tip;
+    }
+
+    public void setTip(String tip) {
+        this.tip = tip;
+    }
+
+    public int getMarimeInBytes() {
+        return marimeInBytes;
+    }
+
+    public void setMarimeInBytes(int marimeInBytes) {
+        this.marimeInBytes = marimeInBytes;
+    }
+
+    public int compareTo(UserFile o) {
+        return Integer.compare(o.getMarimeInBytes(), marimeInBytes);
+    }
+
+    @Override
+    public String toString() {
+        return denumire + extensie + " Tip: " + tip + " Marime in bytes: " + marimeInBytes;
+    }
+}
+/*
+TEST
+
+
+5
+aaaa
+2
+99500
+bbbb
+14
+1500
+ccc
+3
+9500
+ddd
+4
+500
+eee
+1
+99999
+*/
+

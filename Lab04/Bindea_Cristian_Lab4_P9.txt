@@ -1,0 +1,104 @@
+/*
+ Bindea Gheorghe Cristian - Problema 9
+
+Să se definească o clasa numita Student cu atributele private nume, nr. tel si media (constructori, metode setter și getter).
+În metoda main (inclusă într-o altă clasă) se crează un tablou unidimensional de obiecte de tip Student, cu lungimea specificată de catre utilizator.
+Citirea datelor fiecărui student se face în formatul nume^^^nr_tel^^^media.
+Dacă informația specifică numarului de tel. nu este validă (10 caractere numerice,
+cu sau fară caractere speciale de tip spațiu, - sau .), se cere reintroducerea întregului șir de caractere.
+Să se ordoneze și să se afișeze studenții după nume și după medie.
+*/
+
+package com.cristianbindea;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Main {
+
+    public static void main(String[] args) {
+        int n;
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Numar studenti: ");
+        n = scanner.nextInt();
+        Student[] students = new Student[n];
+        for (int i = 0; i < n; i++) {
+            System.out.println("Studentul " + (i + 1) + ": ");
+            String[] studentData = scanner.next().split("\\Q^^^\\E");
+            while (!checkPhoneNumber(studentData[1])) {
+                System.out.println("Nr de telefon incorect. Reincercati");
+                System.out.println("Studentul " + (i + 1) + ": ");
+                studentData = scanner.next().split("\\Q^^^\\E");
+            }
+            students[i] = new Student(studentData[0], studentData[1], Float.parseFloat(studentData[2]));
+        }
+        System.out.println("Studenti ordonati dupa nume:");
+        Arrays.sort(students, Comparator.comparing(Student::getName));
+        printStudents(students);
+        System.out.println();
+        System.out.println("Studenti ordonati dupa medie:");
+        Arrays.sort(students, Comparator.comparing(Student::getAverageGrades));
+        Collections.reverse(Arrays.asList(students));
+        printStudents(students);
+
+    }
+
+    private static boolean checkPhoneNumber(String phone) {
+        String regexPattern = "^[0-9]{3}?[-\\s.]?[0-9]{3}[-\\s.]?[0-9]{4}$";
+        Pattern p = Pattern.compile(regexPattern);
+        Matcher m = p.matcher(phone);
+        return m.matches();
+    }
+
+    private static void printStudents(Student[] students) {
+        for (int i = 0; i < students.length; i++)
+            System.out.println("Studentul " + (i + 1) + ": " + students[i]);
+    }
+}
+
+class Student {
+    private String name;
+    private String phone;
+    private float averageGrades;
+
+    public Student(String name, String phone, float averageGrades) {
+        this.name = name;
+        this.phone = phone;
+        this.averageGrades = averageGrades;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public float getAverageGrades() {
+        return averageGrades;
+    }
+
+    public void setAverageGrades(float averageGrades) {
+        this.averageGrades = averageGrades;
+    }
+
+    @Override
+    public String toString() {
+        return "Name:'" + name + '\'' + ", Phone: '" + phone + '\'' + ", Average Grades: " + averageGrades;
+    }
+
+
+}

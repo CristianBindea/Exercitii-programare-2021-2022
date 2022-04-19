@@ -1,0 +1,78 @@
+/*
+ Bindea Gheorghe Cristian - Problema 3
+*/
+
+package com.cristianbindea;
+
+import com.Package1.Class1;
+import com.Package1.Int1;
+import com.Package1.Int2;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String... args) {
+        double a, b;
+        System.out.print("First number: ");
+        a = new Scanner(System.in).nextDouble();
+        System.out.print("Second number: ");
+        b = new Scanner(System.in).nextDouble();
+        Class2 class2 = new Class2();
+        System.out.println("Sum: " + class2.sum((int) a, (int) b));
+        System.out.println("Product: " + class2.product(a, b));
+
+    }
+}
+
+class Class2 extends Class1 implements Int1, Int2 {
+
+    public Class2() {
+    }
+}
+
+package com.Package1;
+
+public interface Int1 {
+    default int sum(int a, int b) {
+        return a + b;
+    }
+}
+
+package com.Package1;
+
+public interface Int2 {
+    default double product(double a, double b) {
+        return a * b;
+    }
+}
+
+
+package com.Package1;
+
+public class Class1 {
+    protected double a, b;
+
+    public Class1() {
+    }
+
+    public Class1(double a, double b) {
+        this.a = a;
+        this.b = b;
+    }
+
+    public double getA() {
+        return a;
+    }
+
+    public void setA(double a) {
+        this.a = a;
+    }
+
+    public double getB() {
+        return b;
+    }
+
+    public void setB(double b) {
+        this.b = b;
+    }
+}

@@ -1,0 +1,41 @@
+/*
+ Bindea Gheorghe Cristian - Problema 6
+
+    Definiți un șir unidimensional de valori de tip char, având numărul mai mic sau cel mult egal cu un n citit de la tastatură.
+    Fiecare valoare conține valori alfa-numerice generate aleator.
+    Transformați șirul de caractere într-un obiect de tip String. Afișați valoarea inițială și apoi valoarea obținută prin înlocuirea fiecărui caracter numeric cu ‘*’.
+*/
+
+package com.cristianbindea;
+
+import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        int n;
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+        System.out.println("Number of characters: ");
+        n = scanner.nextInt();
+        scanner.close();
+        char[] chars = new char[n];
+
+        for (int i = 0; i < n; i++)
+            chars[i] = (char) (random.nextInt(122 - 48) + 48);
+
+        String string1 = Arrays.toString(chars);
+
+        for (int i = 0; i < n; i++)
+            if (Character.isDigit(chars[i])) chars[i] = '*';
+
+        String string2 = Arrays.toString(chars);
+
+        System.out.println("Valoarea initiala: " + string1);
+        System.out.println("Valoarea dupa modificari: " + string2);
+
+    }
+}

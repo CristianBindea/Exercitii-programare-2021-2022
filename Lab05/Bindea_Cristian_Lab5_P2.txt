@@ -1,0 +1,101 @@
+/*
+ Bindea Gheorghe Cristian - Problema 2
+*/
+
+package com.cristianbindea;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        double ariaTotala = 0;
+        double perimetruTotal = 0;
+
+        System.out.println("Numarul de forme geometrice: ");
+        int n = scanner.nextInt();
+
+        Patrat patrat = new Patrat();
+        Triunghi triunghi = new Triunghi();
+        Hexagon hexagon = new Hexagon();
+
+        for (int i = 0; i < n; i++) {
+            int latura;
+            double arie, perimetru;
+            System.out.print("Latura pentru patratul " + (i + 1) + ": ");
+            latura = scanner.nextInt();
+            arie = patrat.aria(latura);
+            perimetru = patrat.perimetru(latura);
+            ariaTotala += arie;
+            perimetruTotal += perimetru;
+            System.out.println("Aria: " + arie + " | Perimetru: " + perimetru);
+
+            System.out.print("Latura pentru triunghiul " + (i + 1) + ": ");
+            latura = scanner.nextInt();
+            arie = patrat.aria(latura);
+            perimetru = patrat.perimetru(latura);
+            ariaTotala += arie;
+            perimetruTotal += perimetru;
+            System.out.println("Aria: " + arie + " | Perimetru: " + perimetru);
+
+            System.out.print("Latura pentru hexagonul " + (i + 1) + ": ");
+            latura = scanner.nextInt();
+            arie = patrat.aria(latura);
+            perimetru = patrat.perimetru(latura);
+            ariaTotala += arie;
+            perimetruTotal += perimetru;
+            System.out.println("Aria: " + arie + " | Perimetru: " + perimetru);
+            System.out.println();
+        }
+
+        System.out.println("Aria totala a formelor geometrice: " + ariaTotala);
+        System.out.println("Perimetrul total a formelor geometrice: " + perimetruTotal);
+
+    }
+}
+
+interface FormaGeometrica {
+    double aria(int l);
+
+    double perimetru(int l);
+}
+
+class Patrat implements FormaGeometrica {
+
+    @Override
+    public double aria(int l) {
+        return l * l;
+    }
+
+    @Override
+    public double perimetru(int l) {
+        return 4 * l;
+    }
+}
+
+class Triunghi implements FormaGeometrica {
+
+    @Override
+    public double aria(int l) {
+        return 1 / 4 * l * l * Math.sqrt(3);
+    }
+
+    @Override
+    public double perimetru(int l) {
+        return 3 * l;
+    }
+}
+
+class Hexagon implements FormaGeometrica {
+
+    @Override
+    public double aria(int l) {
+        return 3 / 2 * l * l * Math.sqrt(3);
+    }
+
+    @Override
+    public double perimetru(int l) {
+        return 6 * l;
+    }
+}

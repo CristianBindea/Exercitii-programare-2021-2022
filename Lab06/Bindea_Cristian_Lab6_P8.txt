@@ -1,0 +1,61 @@
+/*
+ Bindea Gheorghe Cristian - Problema 8
+*/
+
+package com.cristianbindea;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String... args) {
+
+        System.out.println("Introduceti un numar de inmatriculare: ");
+        String carID = new Scanner(System.in).nextLine();
+
+        if (check(carID)) System.out.println("Numar de inmatriculare valid");
+        else System.out.println("Numar de inmatriculare invalid");
+
+    }
+
+    public static boolean check(String id) {
+        String[] strings = id.split("\\s|-", 3);
+        try {
+            if (strings[0].length() > 2) throw new NoMatchException("Prea multe litere pentru judet");
+            if (strings[0].length() < 1 || (strings[0].length() == 1 && !strings[0].equals("B")))
+                throw new NoMatchException("Prea putinle litere pentru judet");
+            if (strings[1].length() > 3) throw new NoMatchException("Prea multe cifre");
+            if (strings[1].length() < 2) throw new NoMatchException("Prea putinle cifre");
+            if (strings[2].length() > 3) throw new NoMatchException("Prea multe litere");
+            if (strings[2].length() < 3) throw new NoMatchException("Prea putinle litere");
+
+            if (strings[0].equals("B") && strings[1].length() != 3)
+                throw new NoMatchException("Nr. de inmatriculare din Bucuresti au 3 cifre");
+            if (!strings[0].equals("B") && strings[1].length() == 3)
+                throw new NoMatchException("Doar nr. de inmatriculare din Bucuresti au 3 cifre");
+
+            if (!strings[0].matches("[A-Z]+"))
+                throw new NoMatchException("Primele caractere din nr. trebuie sa fie litere mari");
+            if (!strings[1].matches("[0-9]+"))
+                throw new NoMatchException("Dupa litere pentru judet trebuie sa fie doua sau trei cifre");
+            if (!strings[2].matches("[A-Z]+"))
+                throw new NoMatchException("Ultimele 3 caractere trebuie sa fie litere mari");
+
+            if (strings[2].charAt(0) == 'I' || strings[2].charAt(0) == 'O')
+                throw new NoMatchException("Ultimele litere nu pot să conțina \"I\" si \"O\" pe prima poziție");
+            if (strings[2].charAt(2) == 'I' || strings[2].charAt(2) == 'O')
+                throw new NoMatchException("Ultimele litere nu pot să conțina \"I\" si \"O\" pe ultima poziție");
+
+        } catch (Exception NoMatchException) {
+            System.out.println(NoMatchException.getMessage());
+            return false;
+        }
+
+        return true;
+    }
+}
+
+class NoMatchException extends Exception {
+    public NoMatchException(String message) {
+        super(message);
+    }
+}

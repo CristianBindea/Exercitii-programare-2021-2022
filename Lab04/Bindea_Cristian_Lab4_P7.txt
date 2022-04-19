@@ -1,0 +1,209 @@
+/*
+ Bindea Gheorghe Cristian - Problema 7
+*/
+
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Arrays;
+import java.util.Random;
+
+public class Main {
+    public static void main(String[] args) {
+        Copil copil = new Copil("Jhon", 11, 2, 2015);
+        copil.prezentare();
+        copil.varsta();
+        copil.adunare(1, 2);
+        copil.alfabet();
+        copil.aflavetInvers();
+        System.out.println();
+        copil.tablaSah(3);
+        copil.Xsi0();
+        copil.salut();
+    }
+}
+
+class Copil {
+    private String nume;
+    private LocalDate dataNasterii;
+
+    public Copil() {
+        nume = "";
+        dataNasterii = LocalDate.now();
+    }
+
+    public Copil(String nume, int zi, int luna, int an) {
+        this.nume = nume;
+        try {
+            this.dataNasterii = LocalDate.of(an, luna, zi);
+        } catch (Exception e) {
+            System.out.println("Data invalida");
+            dataNasterii = LocalDate.now();
+        }
+    }
+
+    public void setNume(String nume) {
+        this.nume = nume;
+    }
+
+    public void setDataNasterii(LocalDate dataNasterii) {
+        this.dataNasterii = dataNasterii;
+    }
+
+    public void prezentare() {
+        System.out.println("Salut, numele meu este " + this.nume);
+    }
+
+    public void varsta() {
+        LocalDate azi = LocalDate.now();
+        Period perioada = Period.between(dataNasterii, azi);
+        System.out.println("Am " + perioada.getYears() + " ani");
+    }
+
+    public void adunare(int a, int b) {
+        if (a <= 10 && b <= 10)
+            System.out.println(a + " + " + b + " = " + (a + b));
+    }
+
+    public void alfabet() {
+        for (char c = 'A'; c <= 'Z'; ++c)
+            System.out.print(c + " ");
+        System.out.println();
+
+    }
+
+    public void aflavetInvers() {
+        for (char c = 'Z'; c >= 'A'; c--)
+            System.out.print(c + " ");
+        System.out.println();
+
+    }
+
+    public void salut() {
+        System.out.println("La revedere!");
+    }
+
+    public void tablaSah(int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++)
+                if ((i + j) % 2 == 0)
+                    System.out.print(1 + " ");
+                else
+                    System.out.print(0 + " ");
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    public void Xsi0() {
+        Xsi0.playGame();
+    }
+}
+
+class Xsi0 {
+
+    final private static int SIZE = 3;
+
+    private static int[][] gameField;
+    private static int[] movesAvailable;
+    private static int result;
+    private static int[] rows;
+    private static int[] columns;
+    private static int[] diagonal;
+    private static int[] oppositeDiagonal;
+    private static Random random;
+
+    public static void playGame() {
+        init();
+        printGameField();
+        while (result == 0) {
+            nextMove();
+            printGameField();
+            showWinner();
+        }
+    }
+
+    private static void init() {
+        gameField = new int[SIZE][SIZE];
+        movesAvailable = new int[SIZE * SIZE];
+        rows = new int[SIZE];
+        columns = new int[SIZE];
+        diagonal = new int[SIZE];
+        oppositeDiagonal = new int[SIZE];
+        random = new Random();
+        Arrays.setAll(movesAvailable, index -> index);
+    }
+
+    private static void printGameField() {
+        for (int[] a : gameField) {
+            for (int b : a)
+                switch (b) {
+                    case -1:
+                        System.out.print("0 ");
+                        break;
+                    case 1:
+                        System.out.print("X ");
+                        break;
+                    default:
+                        System.out.print("* ");
+                }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    private static void nextMove() {
+        int index = random.ints(0, movesAvailable.length).findFirst().getAsInt();
+        int coordonate = movesAvailable[index];
+        int row = coordonate / SIZE;
+        int col = coordonate % SIZE;
+        int player;
+        if (movesAvailable.length % 2 == 0)
+            player = -1;
+        else
+            player = 1;
+        gameUpdate(row, col, player);
+        gameResult(row, col);
+        System.arraycopy(movesAvailable, index + 1, movesAvailable, index, movesAvailable.length - index - 1);
+        movesAvailable = Arrays.copyOf(movesAvailable, movesAvailable.length - 1);
+    }
+
+    private static void gameUpdate(int row, int col, int player) {
+        gameField[row][col] = player;
+        rows[row] += player;
+        columns[col] += player;
+        if (row == col)
+            diagonal[row] += player;
+        if (row + col + 1 == SIZE)
+            oppositeDiagonal[row] += player;
+    }
+
+    private static void gameResult(int row, int col) {
+        if (movesAvailable.length == 1) {
+            result = -2;
+        }
+        int sumDiagonal = 0, sumOppositeDiagonal = 0;
+        for (int a : diagonal)
+            sumDiagonal += a;
+        for (int a : oppositeDiagonal)
+            sumOppositeDiagonal += a;
+        if (rows[row] == SIZE || columns[col] == SIZE || sumDiagonal == SIZE || sumOppositeDiagonal == SIZE)
+            result = 1;
+        if (rows[row] == -SIZE || columns[col] == -SIZE || sumDiagonal == -SIZE || sumOppositeDiagonal == -SIZE)
+            result = -1;
+    }
+
+    private static void showWinner() {
+        switch (result) {
+            case 1:
+                System.out.println("X Won\n");
+                break;
+            case -1:
+                System.out.println("0 Won\n");
+                break;
+            case -2:
+                System.out.println("DRAW\n");
+                break;
+            default:
+        }
+    }
+}

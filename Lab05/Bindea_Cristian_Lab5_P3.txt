@@ -1,0 +1,131 @@
+/*
+ Bindea Gheorghe Cristian - Problema 3
+*/
+
+package com.cristianbindea;
+
+import java.text.DecimalFormat;
+
+public class Main {
+
+    private static final DecimalFormat df = new DecimalFormat("#.##");
+
+    public static void main(String[] args) {
+
+        Sfera sfera = new Sfera(10);
+        Cub cub = new Cub(5);
+        Cilindru cilindru = new Cilindru(4, 15);
+
+        System.out.println("Vopsea necesara pentru: " + sfera + " " + df.format(Vopsitorie.vopseaNecesara(sfera)));
+        System.out.println("Vopsea necesara pentru: " + cub + " " + df.format(Vopsitorie.vopseaNecesara(cub)));
+        System.out.println("Vopsea necesara pentru: " + cilindru + " " + df.format(Vopsitorie.vopseaNecesara(cilindru)));
+    }
+}
+
+abstract class FiguraSpatiala {
+    String nume;
+
+    abstract public double aria();
+
+    @Override
+    public String toString() {
+        return "nume='" + nume;
+    }
+}
+
+class Sfera extends FiguraSpatiala {
+    private double raza;
+
+    public Sfera(double raza) {
+        this.raza = raza;
+    }
+
+    @Override
+    public double aria() {
+        return 4 * Math.PI * raza * raza;
+    }
+
+    @Override
+    public String toString() {
+        return "Sfera";
+    }
+
+    public double getRaza() {
+        return raza;
+    }
+
+    public void setRaza(double raza) {
+        this.raza = raza;
+    }
+}
+
+class Cub extends FiguraSpatiala {
+    private double latura;
+
+    public Cub(double latura) {
+        this.latura = latura;
+    }
+
+    @Override
+    public double aria() {
+        return 6 * latura * latura;
+    }
+
+    @Override
+    public String toString() {
+        return "Cub";
+    }
+
+    public double getLatura() {
+        return latura;
+    }
+
+    public void setLatura(double latura) {
+        this.latura = latura;
+    }
+}
+
+class Cilindru extends FiguraSpatiala {
+    private double raza_bazei, inaltimea;
+
+    public Cilindru(double raza_bazei, double inaltimea) {
+        this.raza_bazei = raza_bazei;
+        this.inaltimea = inaltimea;
+    }
+
+    @Override
+    public double aria() {
+        return 2 * raza_bazei * raza_bazei * Math.PI + 2 * Math.PI * raza_bazei * inaltimea;
+    }
+
+    @Override
+    public String toString() {
+        return "Cilindru";
+    }
+
+    public double getRaza_bazei() {
+        return raza_bazei;
+    }
+
+    public void setRaza_bazei(double raza_bazei) {
+        this.raza_bazei = raza_bazei;
+    }
+
+    public double getInaltimea() {
+        return inaltimea;
+    }
+
+    public void setInaltimea(double inaltimea) {
+        this.inaltimea = inaltimea;
+    }
+}
+
+interface Vopsea {
+    float vopseaPeUnitateaDeSuparafata = 10;
+}
+
+class Vopsitorie implements Vopsea {
+    public static double vopseaNecesara(FiguraSpatiala figuraSpatiala) {
+        return vopseaPeUnitateaDeSuparafata * figuraSpatiala.aria();
+    }
+}

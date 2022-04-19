@@ -1,0 +1,33 @@
+/*
+ Bindea Gheorghe Cristian - Problema 3
+Scrieti o aplicatie Java in care se citesc de la tastatura 2 valori intregi si se afiseaza cmmdc-ul valorilor.
+*/
+
+
+import java.util.Scanner;
+
+public class HelloWorld {
+	public static void main(String[] args) {
+
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Enter two numbers:");
+		System.out.print("A = ");
+		int a = scanner.nextInt();
+		System.out.print("B = ");
+		int b = scanner.nextInt();
+
+		System.out.println("cmmdc(" + a + "," + b + ")= " + cmmdc(a, b));
+	}
+
+	private static int cmmdc(int a, int b) {
+
+		while (a != b) {
+			if (a > b)
+				a -= b;
+			else
+				b -= a;
+		}
+
+		return a;
+	}
+}

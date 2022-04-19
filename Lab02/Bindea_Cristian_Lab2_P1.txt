@@ -1,0 +1,14 @@
+/*
+ Bindea Gheorghe Cristian - Problema 1
+Verificati functionalitatile mediului Eclipse considerand aplicatii stand-alone minimale cu operatii de I/E
+*/
+import java.util.Scanner;
+
+public class HelloWorld {
+	public static void main(String[] args) {
+
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Enter a text: ");
+		System.out.println("You entered: " + scanner.next());
+	}
+}
